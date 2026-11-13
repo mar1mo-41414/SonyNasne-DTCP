@@ -15,9 +15,10 @@ nasne の録画保護(DTCP-IP と保存時の暗号化)に関する解析記録�
 | [05_xcode_firmware_images](05_xcode_firmware_images.md) | XCode ファームウェアイメージの取得と形式判定(DRM モジュール解析 第1段)。イメージの所在と製品との同一性、ISA(ARC 系)とロードベース、製品版のブロック暗号化、DRM 文字列・ディスパッチ表の所在 | 第1段完了。平文版 = 製品版と同一内容まで確定。本格逆アセンブル(ARC 対応ツールの整備)が次段 |
 | [07_otp_value_level_stability](07_otp_value_level_stability.md) | OTP 応答値の値レベル安定性。応答を保存せずメモリ内で SHA-256 を取って即消去するツール変種で、再起動を挟む 3 回の全走査と単発プローブを実施 | 0x00–0x81(130 件)と 0xFF は値レベルで固定と確定。0x82–0xFE(125 件)は読み出しごとに値が変わる揮発域で、再起動跨ぎではなく読み出し単位で変わることも同ブート再走査で分離済み |
 | [06_otp_rescan_stability](06_otp_rescan_stability.md) | E1(OTP 全 index 走査)の再実施と比較検証。E1 と同一ツール・同一手順で、Debian 環境の 2 ブート(再起動 1 回を挟む)で再走査し 3 者比較 | 3 測定とも全 256 index の分類が完全一致(不一致 0 件)し、分類粒度の環境差なし・再起動間安定性が確定。値レベルの安定性は [07](07_otp_value_level_stability.md) で測定済み。各 index の意味論は未確定 |
-| [08_xcode_fw_drm_module_phase2](08_xcode_fw_drm_module_phase2.md) | XCode ファームウェア DRM モジュール解析 第2段。逆アセンブル環境の整備(capstone 採用と他候補の棄却証拠)、ベクタ表・ディスパッチ表の実測と docs/05 の訂正、DRM 文字列への参照がイメージ内に存在しないことの実測 | 第2段完了。文字列 xref では実行コードに到達できないと判明し、追跡は FW 側コマンドディスパッチ機械の同定へ移行。トークン変換の境界(a)/(b) と OTP の index 境界(0x82)は未判定 |
+| [08_xcode_fw_drm_module_phase2](08_xcode_fw_drm_module_phase2.md) | XCode ファームウェア DRM モジュール解析 第2段。逆アセンブル環境の整備(capstone 採用と他候補の棄却証拠)、ベクタ表・ディスパッチ表の実測と docs/05 の訂正、DRM 文字列への参照がイメージ内に存在しないことの実測 | 第2段完了。文字列 xref では実行コードに到達できないと判明し、追跡は FW 側コマンドディスパッチ機械の同定へ移行。トークン変換の境界(a)/(b) と OTP の index 境界(0x82)は未判定。binutils の棄却理由は [11](11_xcode_fw_arc_tooling.md) で訂正 |
 | [09_xcode_fw_drm_phase3](09_xcode_fw_drm_phase3.md) | XCode ファームウェア DRM モジュール解析 第3段。0x2ED500 レジストリの実読(構造の訂正を含む)、H2M コマンド配送構造の一次資料による確定、DRM 実行コードの所在切り分け(第2 FW・SoC カーネル・ロードモジュール) | 第3段完了。レジストリはハンドラ表ではなく性格未確定、配送構造は確定したが FW 側ハンドラは未同定。(a)/(b) と OTP の index 境界は未判定のまま(理由を明記) |
 | [10_xcode_fw_plaintext_coverage_audit](10_xcode_fw_plaintext_coverage_audit.md) | XCode 主 FW 平文イメージの全域監査。「平文版の一部が暗号化されたまま解析されている可能性」を、窓エントロピーマップ(4KB/512B)・非ゼロランの全数調査・カイ二乗均一性・自己相関で系統的に監査し、スポット精査と領域別判定を行った | 暗号化されたままの領域は全域のどこにも無いと判定。高エントロピー域は全て音声コーデック表・CPRM パラメータ等の平文データとして同定。第1〜3段の結論に修正なし |
+| [11_xcode_fw_arc_tooling](11_xcode_fw_arc_tooling.md) | ARC 解析ツール環境の調査と検証。Ghidra 公式に ARC 定義が無いことの確定、コミュニティ製 ARCompact SLEIGH(Iooss)の素性と導入、真値による検証、GNU objdump が使えなかった理由の切り分け | 完了。Ghidra + ARCompact 定義を採用可能と判定し導入済み。docs/08 §2.2 の binutils 判断を訂正 |
 
 ## 読み方
 
