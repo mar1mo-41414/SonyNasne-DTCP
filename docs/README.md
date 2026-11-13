@@ -19,6 +19,7 @@ nasne の録画保護(DTCP-IP と保存時の暗号化)に関する解析記録�
 | [09_xcode_fw_drm_phase3](09_xcode_fw_drm_phase3.md) | XCode ファームウェア DRM モジュール解析 第3段。0x2ED500 レジストリの実読(構造の訂正を含む)、H2M コマンド配送構造の一次資料による確定、DRM 実行コードの所在切り分け(第2 FW・SoC カーネル・ロードモジュール) | 第3段完了。レジストリはハンドラ表ではなく性格未確定、配送構造は確定したが FW 側ハンドラは未同定。(a)/(b) と OTP の index 境界は未判定のまま(理由を明記) |
 | [10_xcode_fw_plaintext_coverage_audit](10_xcode_fw_plaintext_coverage_audit.md) | XCode 主 FW 平文イメージの全域監査。「平文版の一部が暗号化されたまま解析されている可能性」を、窓エントロピーマップ(4KB/512B)・非ゼロランの全数調査・カイ二乗均一性・自己相関で系統的に監査し、スポット精査と領域別判定を行った | 暗号化されたままの領域は全域のどこにも無いと判定。高エントロピー域は全て音声コーデック表・CPRM パラメータ等の平文データとして同定。第1〜3段の結論に修正なし |
 | [11_xcode_fw_arc_tooling](11_xcode_fw_arc_tooling.md) | ARC 解析ツール環境の調査と検証。Ghidra 公式に ARC 定義が無いことの確定、コミュニティ製 ARCompact SLEIGH(Iooss)の素性と導入、真値による検証、GNU objdump が使えなかった理由の切り分け | 完了。Ghidra + ARCompact 定義を採用可能と判定し導入済み。docs/08 §2.2 の binutils 判断を訂正 |
+| [12_xcode_fw_drm_phase4](12_xcode_fw_drm_phase4.md) | XCode ファームウェア DRM モジュール解析 第4段。Ghidra によるベクタ表の実読(ベクタ[1] は命令の途中と確定)、コマンド番号の 2 層性の確定と docs/09 §4.1 の訂正、procIdx 配送先の確定(SCRAMBLER は proc6、その他のセキュリティ系は proc0)、FW 側ディスパッチ探索と +0x100000 ビューの発見 | 第4段完了。ベクタ・番号体系・配送先は確定。受信→ディスパッチ本体と DRM ハンドラは未同定のまま((a)/(b)・OTP 境界も未判定)。次段は +0x100000 ビューへ再マッピングした解析が前提 |
 
 ## 読み方
 
