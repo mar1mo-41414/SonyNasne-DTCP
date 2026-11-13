@@ -24,6 +24,7 @@ nasne の録画保護(DTCP-IP と保存時の暗号化)に関する解析記録�
 | [14_xcode_fw_drm_phase6](14_xcode_fw_drm_phase6.md) | XCode ファームウェア DRM モジュール解析 第6段。名前記述子機構を追跡し、名前→関数の対応表ではなく名前付きリソース(バッファ/メモリプール)管理フレームワークであることを同定(対応表は RAM 0x67F0B8 の実行時登録テーブルで関数ポインタを持たない)。AKE 実体(gen_kauth / setexchgkey、交換鍵 = セッション内 2 列の XOR)と SECUREDTS 経路(モード分岐と 6 スロットの鍵オブジェクト束縛)を実読 | 第6段完了。名前機構の同定・AKE 実体・SECUREDTS 経路は確定。SCRAMBLER 実体と control_words 処理は未到達で、(a)/(b)・OTP 境界は未判定のまま |
 | [15_xcode_fw_drm_phase7](15_xcode_fw_drm_phase7.md) | XCode ファームウェア DRM モジュール解析 第7段。通信記述子のパケットスロット配列の読み手から伝送層ディスパッチを、両ビューの復号済み命令列に対して複数の署名で系統的に探索(陰性の範囲を明記)。gen_kauth の中核計算がハードウェア RSA/ECC エンジンのドライバであることを実読で確定し、AKE 素材の起源を一部追跡。slot_id の写像は変換関数(ファイル `0xB6344`)には無く、open 本体は要求の +0x38/+0x40 の鍵指定ペアを読むことを確定 | 第7段完了。ディスパッチ本体と SCRAMBLER / READ_FROM_OTP ハンドラは未到達のまま((a)/(b)・OTP 境界も未判定) |
 | [16_xcode_fw_drm_phase8](16_xcode_fw_drm_phase8.md) | XCode ファームウェア DRM モジュール解析 第8段。主 FW の登録サイト census(材料化 3 段 + 静的ペア表走査)、第2 FW の本格解析(ISA とロードベース `0xB00000` の確定、タスク表と proc4 受信タスク入口の同定、共有バッファマネージャの実読)、AKE 文脈初期化側の追跡、静的解析の到達限界の整理 | 第8段完了。登録サイト・ディスパッチ・SCRAMBLER / READ_FROM_OTP ハンドラは未到達のまま((a)/(b)・OTP 境界も未判定)。静的経路は到達限界の所見を整理し、実験系への申し送りを記載 |
+| [17_otp_blackbox_probe](17_otp_blackbox_probe.md) | Debian 稼働下のブラックボックス探索。OTP 固定セルの意味論照合 (index 0xFF = INF2 チップ ID と同定、他 45 セルは候補 6 種の範囲で一致なし) と、ドライバ API / mhcmd コマンドの応答マッピング (SET_KEYSTORE_KEY の範囲外受理、RESERVE の全変種失敗、XC4_RSA_REQUEST と GET_RANDOM_BYTE の実働、GET_HARDWARE_CAPS の未実装) | 完了。固定域の生値ダンプは開発側にのみ保存し、本文では所在と SHA-256 のみ参照 |
 
 ## 読み方
 
